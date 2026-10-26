@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "745072197473",
+    "project_id": "tn-messenger-e1585",
+    "storage_bucket": "tn-messenger-e1585.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745072197473:android:856a1edcbc2acdbeb60f20",
+        "android_client_info": {
+          "package_name": "com.sozvezdie.messenger"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtQ9gDk5ngD3bX6OvapkD7v7IhdW_3z2o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
