@@ -25,7 +25,7 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
     }
 }
 
-/** Заглушка для пустого списка: без фейковых чатов, только подсказка. */
+/** Пустое состояние списка: вместо выдуманных чатов показываем подсказку. */
 @Composable
 fun EmptyState(
     title: String,
