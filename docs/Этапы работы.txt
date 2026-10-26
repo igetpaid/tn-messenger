@@ -1,0 +1,2 @@
+1. Создать акк firebase, зарегаться, получить google-services.json и данные приложения.
+2. Создать прототип в в Android Studio
