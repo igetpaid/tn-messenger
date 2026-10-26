@@ -107,31 +107,23 @@ class ChatRepository(
      */
     suspend fun openChat(myUid: String, myName: String, other: User): Result<String> = runCatching {
         val chatId = listOf(myUid, other.uid).sorted().joinToString("__")
-        val chatRef = database.reference.child("chats").child(chatId)
-        val existing = chatRef.get().await()
 
-        if (!existing.exists()) {
-            val chat = mapOf(
-                "id" to chatId,
-                "createdAt" to ServerValue.TIMESTAMP,
-                "members" to mapOf(myUid to true, other.uid to true),
-                "names" to mapOf(myUid to myName, other.uid to other.name),
-                "readAt" to mapOf(myUid to 0L, other.uid to 0L),
-            )
-            // Одним обновлением создаём чат и добавляем его обоим участникам.
-            database.reference.updateChildren(
-                mapOf(
-                    "chats/$chatId" to chat,
-                    "userChats/$myUid/$chatId" to true,
-                    "userChats/${other.uid}/$chatId" to true,
-                ),
-            ).await()
-        } else {
-            // Имена могли измениться — обновляем их в чате.
-            chatRef.child("names").updateChildren(
-                mapOf(myUid to myName, other.uid to other.name),
-            ).await()
-        }
+        // Не читаем чат заранее: правилам Firebase нельзя читать диалог,
+        // в котором пользователь ещё не участник. При создании мы становимся
+        // участником этой же записью, поэтому проверка существования не нужна.
+        // Одним обновлением создаём чат и добавляем его обоим участникам.
+        database.reference.updateChildren(
+            mapOf(
+                "chats/$chatId/id" to chatId,
+                "chats/$chatId/createdAt" to ServerValue.TIMESTAMP,
+                "chats/$chatId/members/$myUid" to true,
+                "chats/$chatId/members/${other.uid}" to true,
+                "chats/$chatId/names/$myUid" to myName,
+                "chats/$chatId/names/${other.uid}" to other.name,
+                "userChats/$myUid/$chatId" to true,
+                "userChats/${other.uid}/$chatId" to true,
+            ),
+        ).await()
         chatId
     }.mapError("Не удалось открыть чат")
 
