@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Папки, которые FileProvider может отдавать другим приложениям.
+    Сюда попадают только файлы, скачанные из чата и сохранённые в кэш.
+-->
+<paths>
+    <cache-path name="media" path="media/" />
+</paths>

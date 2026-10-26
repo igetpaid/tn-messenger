@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Цвета окна до запуска Compose. Совпадают с темой приложения. -->
+    <color name="window_background">#F5F5FB</color>
+</resources>
